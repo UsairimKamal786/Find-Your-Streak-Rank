@@ -1,17 +1,17 @@
-# Streak Rank – Find Your Streak Rank
+# Find Your Streak Rank
 
-A **static leaderboard** for developer streaks, fully powered by GitHub Pages.  
-Contributors add themselves by editing `users.yml`. A GitHub Action automatically generates `leaderboard.json`, which `index.html` uses to display the leaderboard.
+A **fully automatic leaderboard** for developer streaks, hosted on GitHub Pages.  
+Contributors just update `users.yml` or create a PR, and the leaderboard updates automatically — no manual edits to JSON or HTML required.
 
 ---
 
 ## 🏃 Quick Start
 
 1. Fork the repo.  
-2. Edit `users.yml` to add yourself:
+2. Add your info to `users.yml`:
 
 ```yaml
-- username: UsairimKamal786
-  country: Pakistan
+- username: yourname
+  country: Country
   streak: 6
   last_check: 2025-11-22
