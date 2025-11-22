@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Find Your Streak Rank</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; color: #333; }
+  table { width: 80%; margin: 20px auto; border-collapse: collapse; }
+  th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+  th { background: #333; color: #fff; }
+</style>
+</head>
+<body>
+<h1>Find Your Streak Rank</h1>
+<table id="leaderboard">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Username</th>
+      <th>Country</th>
+      <th>Streak</th>
+      <th>Last Check</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+fetch('leaderboard.json')
+  .then(res => res.json())
+  .then(users => {
+    const tbody = document.querySelector('#leaderboard tbody');
+    users.forEach((u, i) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${i+1}</td>
+        <td>${u.username}</td>
+        <td>${u.country}</td>
+        <td>${u.streak}</td>
+        <td>${u.last_check}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  });
+</script>
+</body>
+</html>
