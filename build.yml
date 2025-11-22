@@ -1,0 +1,40 @@
+name: Build Leaderboard
+
+on:
+  push:
+    paths:
+      - 'users.yml'  # Only run when users.yml is updated
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install PyYAML
+        run: pip install pyyaml
+
+      - name: Generate leaderboard.json
+        run: |
+          python - <<EOF
+          import yaml, json
+          with open("users.yml") as f:
+              users = yaml.safe_load(f)
+          users.sort(key=lambda x: x.get("streak",0), reverse=True)
+          with open("leaderboard.json", "w") as out:
+              json.dump(users, out, indent=2)
+          EOF
+
+      - name: Commit and push JSON
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add leaderboard.json
+          git commit -m "Update leaderboard.json" || echo "No changes"
+          git push
